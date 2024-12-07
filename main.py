@@ -215,8 +215,6 @@ def apicommentsrequest(url):
 
 
 
-import requests
-import json
 
 
 gist_url = "https://gist.githubusercontent.com/siawaseok3/12114cff120f3fbed15b7ed7cae8602a/raw/c0f2507690a4cf26b7577df43dec5597d538ef9c/video_apis.json"
