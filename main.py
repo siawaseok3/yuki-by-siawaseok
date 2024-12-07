@@ -215,12 +215,31 @@ def apicommentsrequest(url):
 
 
 
-# 動画取得用APIリストの作成
-video_apis = [
-    r"https://invidious.jing.rocks/",
-    r"https://invidious.nerdvpn.de/",
-   r"https://script.google.com/macros/s/AKfycbw43HTKJe0khOM3h5lrRbWw2OUONcbQCsnSry7F6c_1bPdtxVjTUotm1_XY2KfqMLWT/exec?videoId="
-]
+import requests
+import json
+
+
+gist_url = "https://gist.githubusercontent.com/siawaseok3/12114cff120f3fbed15b7ed7cae8602a/raw/c0f2507690a4cf26b7577df43dec5597d538ef9c/video_apis.json"
+
+video_apis = []
+
+def update_video_apis_from_gist(gist_url):
+    """GistからAPIリストを取得し、video_apisを更新"""
+    global video_apis
+    try:
+        response = requests.get(gist_url)
+        response.raise_for_status()  # HTTPエラーがあれば例外をスロー
+        data = response.json()  # JSONデータをパース
+        video_apis = data.get("video_apis", [])  # "video_apis"キーを取得
+        print(f"Updated video_apis: {video_apis}")
+    except Exception as e:
+        print(f"Failed to update video_apis: {e}")
+
+# GistからAPIリストを更新
+update_video_apis_from_gist(gist_url)
+
+# video_apisの内容を確認
+print(video_apis)
 
 # get_data 関数の変更
 def get_data(videoid):
